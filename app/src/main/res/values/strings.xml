@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">AppQuanLyBanTraSua</string>
+    <!--    <string name="title_login"><font color="#1E1E1E">Don’t have an account ?</font> <font color="#6047F9">Sign Up</font></string>-->
 </resources>

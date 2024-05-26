@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "918548490660",
+    "project_id": "appquanlybantrasua",
+    "storage_bucket": "appquanlybantrasua.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918548490660:android:b35ae63086aeb7622a3931",
+        "android_client_info": {
+          "package_name": "com.example.appquanlybantrasua"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3pIrD25Yry2JyyC_uIweFlI--Q4weuKs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
