@@ -109,7 +109,6 @@ public class HomeFragment extends Fragment {
         binding.rvCategory.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
         binding.rvCategory.setAdapter(categoryAdapter);
 
-        showPopular();
 
     }
 
