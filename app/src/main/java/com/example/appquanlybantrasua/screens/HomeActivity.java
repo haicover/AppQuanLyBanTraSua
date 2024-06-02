@@ -21,7 +21,7 @@ import com.example.appquanlybantrasua.screens.fragment.SettingFragment;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends BaseActivity {
     private ActivityHomeBinding binding;
 
     @Override

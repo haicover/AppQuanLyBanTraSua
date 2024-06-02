@@ -16,6 +16,9 @@
         android:theme="@style/Theme.AppQuanLyBanTraSua"
         tools:targetApi="31">
         <activity
+            android:name=".screens.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".screens.ForgotPasswordActivity"
             android:exported="false" />
         <activity
@@ -39,8 +42,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.appquanlybantrasua.screens.AddProductActivity" />
-        <activity android:name="com.example.appquanlybantrasua.screens.ListProductActivity" />
+        <activity android:name=".screens.AddProductActivity" />
+        <activity android:name=".screens.ListProductActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

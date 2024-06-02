@@ -10,12 +10,12 @@ import java.util.List;
 
 public class App extends Application {
     public static List<Categories> mCategoriesList=new ArrayList<>();
-
+    public static List<Product> mPopularList=new ArrayList<>();
     @Override
     public void onCreate() {
         super.onCreate();
         mCategoriesList = getListCategory();
-
+        mPopularList = getListProduct();
     }
 
     private List<Categories> getListCategory() {

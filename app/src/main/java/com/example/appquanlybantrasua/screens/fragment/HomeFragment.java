@@ -1,6 +1,7 @@
 package com.example.appquanlybantrasua.screens.fragment;
 
 import static com.example.appquanlybantrasua.App.mCategoriesList;
+import static com.example.appquanlybantrasua.App.mPopularList;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +13,15 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.example.appquanlybantrasua.R;
 import com.example.appquanlybantrasua.adapter.CategoryAdapter;
@@ -78,41 +84,102 @@ public class HomeFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        binding = FragmentHomeBinding.inflate(inflater,container,false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
     private static final String TAG = "1HomeFragment";
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        CategoryAdapter categoryAdapter=new CategoryAdapter(new CategoryAdapter.OnCategoryClick() {
+        CategoryAdapter categoryAdapter = new CategoryAdapter(new CategoryAdapter.OnCategoryClick() {
             @Override
             public void clickCategory(Categories categories) {
-                startActivity(new Intent(requireContext(), ListProductActivity.class).putExtra("categories",categories));
+                startActivity(new Intent(requireContext(), ListProductActivity.class).putExtra("categories", categories));
             }
         });
-        HomeViewModel homeViewModel=new ViewModelProvider(this).get(HomeViewModel.class);
+        ProductAdapter productAdapter = new ProductAdapter(new ProductAdapter.OnProductClick() {
+            @Override
+            public void clickProduct(Product product) {
+                startActivity(new Intent(requireContext(), ListProductActivity.class));
+            }
+
+            @Override
+            public void deleteProduct(Product product) {
+            }
+
+            @Override
+            public void editProduct(Product product) {
+            }
+        });
+        HomeViewModel homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         homeViewModel.getListLiveData().observe(getViewLifecycleOwner(), new Observer<List<Categories>>() {
             @Override
             public void onChanged(List<Categories> categories) {
-                Log.d(TAG, "onChanged: "+categories.size());
+                Log.d(TAG, "onChanged: " + categories.size());
                 categoryAdapter.setmCategoriesList(categories);
             }
         });
+        homeViewModel.listLiveData1.observe(getViewLifecycleOwner(), new Observer<List<Product>>() {
+            @Override
+            public void onChanged(List<Product> products) {
+                Log.d(TAG, "onChanged: " + products.size());
+                productAdapter.setmProductList(products);
+            }
+        });
 
-
-        binding.rvCategory.setLayoutManager(new LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false));
+        binding.rvCategory.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvCategory.setAdapter(categoryAdapter);
 
+        binding.rvPopularProduct.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
+        binding.rvPopularProduct.setAdapter(productAdapter);
 
+        binding.editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    String key = binding.editTextSearch.getText().toString().trim();
+
+                }
+                return false;
+            }
+        });
+        binding.editTextSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                ArrayList<Product> filteredProducts = new ArrayList<>();
+                ArrayList<Categories> filteredCategories = new ArrayList<>();
+                for (Product pro : mPopularList) {
+                    if (pro.getName().contains(s)) {
+                        filteredProducts.add(pro);
+                    }
+                }
+                productAdapter.setmProductList(filteredProducts);
+
+                for (Categories cate : mCategoriesList) {
+                    if (cate.getName().contains(s)) {
+                        filteredCategories.add(cate);
+                    }
+                }
+                categoryAdapter.setmCategoriesList(filteredCategories);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
-
-
-
 
 }
