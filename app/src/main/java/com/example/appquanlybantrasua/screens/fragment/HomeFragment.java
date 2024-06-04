@@ -140,16 +140,7 @@ public class HomeFragment extends Fragment {
         binding.rvPopularProduct.setLayoutManager(new LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvPopularProduct.setAdapter(productAdapter);
 
-        binding.editTextSearch.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    String key = binding.editTextSearch.getText().toString().trim();
 
-                }
-                return false;
-            }
-        });
         binding.editTextSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
